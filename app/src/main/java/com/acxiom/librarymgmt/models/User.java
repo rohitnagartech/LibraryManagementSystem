@@ -41,9 +41,9 @@ public class User {
     @PropertyName("isAdmin")
     public void setAdmin(boolean admin) { isAdmin = admin; }
 
-    @PropertyName("active")
+    @PropertyName("isActive")
     public boolean isActive() { return isActive; }
     
-    @PropertyName("active")
+    @PropertyName("isActive")
     public void setActive(boolean active) { isActive = active; }
 }

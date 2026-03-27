@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
@@ -36,7 +37,7 @@ public class UpdateMembershipActivity extends AppCompatActivity {
     private TextInputEditText etMembershipId, etFirstName, etLastName;
     private EditText etStartDate, etEndDate;
     private RadioGroup rgExtension;
-    private RadioButton rbRemove;
+    private CheckBox cbRemove;
     private Button btnFetch, btnConfirm, btnCancel, btnHome, btnLogout;
     private TextView tvPageError;
     private ProgressBar progressBar;
@@ -71,7 +72,7 @@ public class UpdateMembershipActivity extends AppCompatActivity {
         etStartDate = findViewById(R.id.et_start_date);
         etEndDate = findViewById(R.id.et_end_date);
         rgExtension = findViewById(R.id.rg_extension);
-        rbRemove = findViewById(R.id.rb_remove);
+        cbRemove = findViewById(R.id.rb_remove);
         btnFetch = findViewById(R.id.btn_fetch);
         btnConfirm = findViewById(R.id.btn_confirm);
         btnCancel = findViewById(R.id.btn_cancel);
@@ -181,7 +182,7 @@ public class UpdateMembershipActivity extends AppCompatActivity {
         updates.put("startDate", startCalendar.getTime());
         updates.put("endDate", endCalendar.getTime());
         
-        if (rbRemove.isChecked()) {
+        if (cbRemove.isChecked()) {
             updates.put("status", "inactive");
         }
 

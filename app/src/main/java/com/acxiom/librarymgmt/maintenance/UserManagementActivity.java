@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -21,6 +20,7 @@ import com.acxiom.librarymgmt.models.User;
 import com.acxiom.librarymgmt.utils.Constants;
 import com.acxiom.librarymgmt.utils.FirebaseHelper;
 import com.acxiom.librarymgmt.utils.SessionManager;
+import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -32,7 +32,7 @@ public class UserManagementActivity extends AppCompatActivity {
 
     private RadioGroup rgUserType;
     private TextInputEditText etName;
-    private CheckBox cbActive, cbAdmin;
+    private MaterialSwitch cbActive, cbAdmin;
     private Button btnConfirm, btnCancel, btnHome, btnLogout;
     private TextView tvPageError;
     private ProgressBar progressBar;

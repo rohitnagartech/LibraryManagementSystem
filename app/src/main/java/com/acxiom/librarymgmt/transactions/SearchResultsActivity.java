@@ -33,7 +33,8 @@ public class SearchResultsActivity extends AppCompatActivity {
     private BookListAdapter adapter;
     private List<Book> bookList;
     private Button btnIssueBook, btnHome, btnLogout;
-    private TextView tvError, tvNoRecords;
+    private TextView tvError;
+    private View tvNoRecords;
     private ProgressBar progressBar;
     private SessionManager session;
     private FirebaseHelper firebaseHelper;

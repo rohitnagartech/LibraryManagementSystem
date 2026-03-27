@@ -55,7 +55,7 @@ public class LoginActivity extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
         firebaseHelper.getDb().collection(Constants.USERS)
                 .whereEqualTo("username", userId)
-                .whereEqualTo("active", true)
+                .whereEqualTo("isActive", true)
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     progressBar.setVisibility(View.GONE);
@@ -69,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
                         User user = document.toObject(User.class);
                         if (user.getPassword().equals(password)) {
                             found = true;
-                            session.createSession(user.getUserId(), user.isAdmin(), user.getName());
+                            session.createSession(user.getUserId() != null ? user.getUserId() : user.getUsername(), user.isAdmin(), user.getName());
                             
                             Intent intent;
                             if (user.isAdmin()) {

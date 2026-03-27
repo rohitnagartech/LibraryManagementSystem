@@ -32,7 +32,11 @@
         <activity android:name=".activities.ConfirmationActivity" />
         <activity android:name=".activities.CancelActivity" />
         <activity android:name=".activities.LogoutActivity" />
-        <activity android:name=".activities.SeedDataActivity" />
+        <activity
+            android:name=".activities.SeedDataActivity"
+            android:exported="false">
+
+        </activity>
 
         <activity android:name=".transactions.TransactionsActivity" />
         <activity android:name=".transactions.BookAvailableActivity" />

@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RadioGroup;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,7 +40,7 @@ public class UpdateBookActivity extends AppCompatActivity {
     private RadioGroup rgType;
     private AutoCompleteTextView actvName;
     private TextInputEditText etSerialNo;
-    private Spinner spinnerStatus;
+    private AutoCompleteTextView spinnerStatus;
     private EditText etDate;
     private Button btnConfirm, btnCancel, btnHome, btnLogout;
     private TextView tvPageError;
@@ -98,7 +97,7 @@ public class UpdateBookActivity extends AppCompatActivity {
                     etSerialNo.setText(b.getSerialNo());
                     for (int i = 0; i < statuses.length; i++) {
                         if (statuses[i].equals(b.getStatus())) {
-                            spinnerStatus.setSelection(i);
+                            spinnerStatus.setText(statuses[i], false);
                             break;
                         }
                     }
@@ -167,7 +166,7 @@ public class UpdateBookActivity extends AppCompatActivity {
 
         progressBar.setVisibility(View.VISIBLE);
         Map<String, Object> updates = new HashMap<>();
-        updates.put("status", spinnerStatus.getSelectedItem().toString());
+        updates.put("status", spinnerStatus.getText().toString());
         updates.put("procurementDate", calendar.getTime());
 
         firebaseHelper.getDb().collection(Constants.BOOKS).document(serialNo).update(updates)
