@@ -1,5 +1,7 @@
 package com.acxiom.librarymgmt.models;
 
+import com.google.firebase.firestore.PropertyName;
+
 public class User {
     private String userId;
     private String name;
@@ -33,9 +35,15 @@ public class User {
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
 
+    @PropertyName("isAdmin")
     public boolean isAdmin() { return isAdmin; }
+    
+    @PropertyName("isAdmin")
     public void setAdmin(boolean admin) { isAdmin = admin; }
 
+    @PropertyName("active")
     public boolean isActive() { return isActive; }
+    
+    @PropertyName("active")
     public void setActive(boolean active) { isActive = active; }
 }
