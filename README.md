@@ -518,8 +518,8 @@ On first launch, navigate to `SeedDataActivity` and tap **"Seed Test Data"** to 
 Android Developer | Acxiom Consulting Assessment Candidate
 
 - 📧 Email: rohitnagartech124@gmail.com | en24ca5030142@medicaps.ac.in
-- 💼 LinkedIn: [linkedin.com/in/yourprofile](https://www.linkedin.com/in/rohitnagartech/)
-- 🐙 GitHub: [github.com/yourusername](https://github.com/rohitnagartech)
+- 💼 LinkedIn: https://www.linkedin.com/in/rohitnagartech/
+- 🐙 GitHub: (https://github.com/rohitnagartech)
 
 ---
 
