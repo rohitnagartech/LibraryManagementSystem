@@ -11,6 +11,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.acxiom.librarymgmt.R;
 import com.acxiom.librarymgmt.activities.AdminHomeActivity;
@@ -50,7 +51,8 @@ public class PayFineActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pay_fine);
-
+        // Force Light Mode
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         session = new SessionManager(this);
         firebaseHelper = FirebaseHelper.getInstance();
         issueId = getIntent().getStringExtra("issueId");

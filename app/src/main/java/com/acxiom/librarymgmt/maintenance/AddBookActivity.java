@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.acxiom.librarymgmt.R;
 import com.acxiom.librarymgmt.activities.AdminHomeActivity;
@@ -49,7 +50,8 @@ public class AddBookActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_book);
-
+        // Force Light Mode
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         session = new SessionManager(this);
         if (!session.isAdmin()) {
             Toast.makeText(this, R.string.err_access_denied, Toast.LENGTH_SHORT).show();

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackground">
+    android:background="#F8F9FA">
 
     <include
         android:id="@+id/include_toolbar"
@@ -17,12 +17,32 @@
         app:layout_constraintBottom_toTopOf="@id/layout_bottom_buttons"
         app:layout_constraintTop_toBottomOf="@id/include_toolbar">
 
-        <ListView
-            android:id="@+id/lv_reports"
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:divider="@color/colorInactive"
-            android:dividerHeight="1dp" />
+            android:layout_marginBottom="16dp"
+            android:layout_marginStart="4dp"
+            android:text="Available Reports"
+            android:textColor="#212121"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="2dp"
+            app:strokeWidth="0dp">
+
+            <ListView
+                android:id="@+id/lv_reports"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@android:color/transparent"
+                android:dividerHeight="0dp"
+                android:paddingVertical="8dp" />
+
+        </com.google.android.material.card.MaterialCardView>
 
     </LinearLayout>
 
@@ -30,27 +50,33 @@
         android:id="@+id/layout_bottom_buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:orientation="horizontal"
         android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_home"
-            style="@style/Widget.Material3.Button"
+            style="@style/Widget.Material3.Button.TonalButton"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="56dp"
             android:layout_marginEnd="8dp"
             android:layout_weight="1"
-            android:text="@string/btn_home" />
+            android:text="@string/btn_home"
+            app:cornerRadius="12dp"
+            app:icon="@drawable/ic_home" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_logout"
-            style="@style/Widget.Material3.Button"
+            style="@style/Widget.Material3.Button.TextButton"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="56dp"
             android:layout_marginStart="8dp"
             android:layout_weight="1"
-            android:text="@string/btn_logout" />
+            android:text="@string/btn_logout"
+            android:textColor="#616161"
+            app:cornerRadius="12dp"
+            app:icon="@drawable/ic_logout" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

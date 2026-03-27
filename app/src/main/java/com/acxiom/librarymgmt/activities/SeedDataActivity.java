@@ -5,6 +5,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.acxiom.librarymgmt.R;
 import com.acxiom.librarymgmt.models.Book;
@@ -21,7 +22,8 @@ public class SeedDataActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seed_data);
-
+        // Force Light Mode
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         Button btnSeedData = findViewById(R.id.btn_seed_data);
         btnSeedData.setOnClickListener(v -> seedData());
     }

@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.acxiom.librarymgmt.R;
 import com.acxiom.librarymgmt.utils.SessionManager;
@@ -18,7 +19,8 @@ public class CancelActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cancel);
-
+        // Force Light Mode
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         session = new SessionManager(this);
 
         TextView toolbarTitle = findViewById(R.id.toolbar_title);

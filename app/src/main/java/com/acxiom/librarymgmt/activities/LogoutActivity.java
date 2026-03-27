@@ -7,6 +7,7 @@ import android.os.Looper;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.acxiom.librarymgmt.R;
 
@@ -16,7 +17,8 @@ public class LogoutActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logout);
-
+// Force Light Mode
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         Button btnLoginAgain = findViewById(R.id.btn_login_again);
         btnLoginAgain.setOnClickListener(v -> {
             Intent intent = new Intent(this, LoginActivity.class);

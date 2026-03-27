@@ -8,6 +8,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,7 +32,7 @@ public class IssueRequestsActivity extends AppCompatActivity {
     private IssueRequestAdapter adapter;
     private List<IssueRequest> requestList = new ArrayList<>();
     private ProgressBar progressBar;
-    private TextView tvNoRecords;
+    private View tvNoRecords;
     private SessionManager session;
     private FirebaseHelper firebaseHelper;
 
@@ -39,7 +40,8 @@ public class IssueRequestsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report_list);
-
+        // Force Light Mode
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         session = new SessionManager(this);
         firebaseHelper = FirebaseHelper.getInstance();
 

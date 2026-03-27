@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackground">
+    android:background="#F8F9FA">
 
     <include
         android:id="@+id/include_toolbar"
@@ -12,7 +12,9 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/btn_logout"
+        android:clipToPadding="false"
+        android:paddingBottom="80dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/include_toolbar">
 
         <LinearLayout
@@ -24,49 +26,80 @@
             <GridLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:alignmentMode="alignMargins"
                 android:columnCount="2"
                 android:rowCount="1">
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/card_reports"
                     android:layout_width="0dp"
-                    android:layout_height="120dp"
+                    android:layout_height="140dp"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:layout_margin="8dp"
-                    app:cardBackgroundColor="@color/colorCardBackground"
-                    app:cardCornerRadius="8dp"
-                    app:cardElevation="4dp">
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="2dp"
+                    app:strokeWidth="0dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="@string/title_reports"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@android:drawable/ic_menu_agenda"
+                            app:tint="@color/colorPrimary" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:text="@string/title_reports"
+                            android:textColor="#424242"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/card_transactions"
                     android:layout_width="0dp"
-                    android:layout_height="120dp"
+                    android:layout_height="140dp"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:layout_margin="8dp"
-                    app:cardBackgroundColor="@color/colorCardBackground"
-                    app:cardCornerRadius="8dp"
-                    app:cardElevation="4dp">
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="2dp"
+                    app:strokeWidth="0dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="@string/title_transactions"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@android:drawable/ic_menu_sort_alphabetically"
+                            app:tint="@color/colorPrimary" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:text="@string/title_transactions"
+                            android:textColor="#424242"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
             </GridLayout>
@@ -74,63 +107,88 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="24dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="12dp"
                 android:text="@string/lbl_product_details"
+                android:textColor="#212121"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <TableLayout
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:padding="8dp"
-                android:stretchColumns="*">
+                android:layout_marginHorizontal="8dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="1dp"
+                app:strokeColor="#EEEEEE"
+                app:strokeWidth="1dp">
 
-                <TableRow android:background="@color/colorPrimary">
-                    <TextView android:padding="8dp" android:text="@string/lbl_code_from" android:textColor="@color/white" android:textStyle="bold" />
-                    <TextView android:padding="8dp" android:text="@string/lbl_code_to" android:textColor="@color/white" android:textStyle="bold" />
-                    <TextView android:padding="8dp" android:text="@string/lbl_category" android:textColor="@color/white" android:textStyle="bold" />
-                </TableRow>
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:stretchColumns="*">
 
-                <TableRow>
-                    <TextView android:padding="8dp" android:text="SC(B/M)000001" />
-                    <TextView android:padding="8dp" android:text="SC(B/M)000004" />
-                    <TextView android:padding="8dp" android:text="Science" />
-                </TableRow>
-                <TableRow>
-                    <TextView android:padding="8dp" android:text="EC(B/M)000001" />
-                    <TextView android:padding="8dp" android:text="EC(B/M)000004" />
-                    <TextView android:padding="8dp" android:text="Economics" />
-                </TableRow>
-                <TableRow>
-                    <TextView android:padding="8dp" android:text="FC(B/M)000001" />
-                    <TextView android:padding="8dp" android:text="FC(B/M)000004" />
-                    <TextView android:padding="8dp" android:text="Fiction" />
-                </TableRow>
-                <TableRow>
-                    <TextView android:padding="8dp" android:text="CH(B/M)000001" />
-                    <TextView android:padding="8dp" android:text="CH(B/M)000004" />
-                    <TextView android:padding="8dp" android:text="Children" />
-                </TableRow>
-                <TableRow>
-                    <TextView android:padding="8dp" android:text="PD(B/M)000001" />
-                    <TextView android:padding="8dp" android:text="PD(B/M)000004" />
-                    <TextView android:padding="8dp" android:text="Personal Dev" />
-                </TableRow>
+                    <TableRow android:background="#F1F3F4" android:paddingVertical="12dp">
+                        <TextView android:paddingStart="12dp" android:text="@string/lbl_code_from" android:textColor="#616161" android:textSize="12sp" android:textStyle="bold" />
+                        <TextView android:text="@string/lbl_code_to" android:textColor="#616161" android:textSize="12sp" android:textStyle="bold" />
+                        <TextView android:paddingEnd="12dp" android:text="@string/lbl_category" android:textColor="#616161" android:textSize="12sp" android:textStyle="bold" />
+                    </TableRow>
 
-            </TableLayout>
+                    <TableRow android:paddingVertical="14dp">
+                        <TextView android:paddingStart="12dp" android:text="SC(B/M)000001" android:textColor="#424242" />
+                        <TextView android:text="SC(B/M)000004" android:textColor="#424242" />
+                        <TextView android:paddingEnd="12dp" android:text="Science" android:textColor="@color/colorPrimary" android:textStyle="bold" />
+                    </TableRow>
+
+                    <View android:layout_height="1dp" android:background="#F1F1F1" />
+
+                    <TableRow android:paddingVertical="14dp">
+                        <TextView android:paddingStart="12dp" android:text="EC(B/M)000001" android:textColor="#424242" />
+                        <TextView android:text="EC(B/M)000004" android:textColor="#424242" />
+                        <TextView android:paddingEnd="12dp" android:text="Economics" android:textColor="@color/colorPrimary" android:textStyle="bold" />
+                    </TableRow>
+
+                    <View android:layout_height="1dp" android:background="#F1F1F1" />
+
+                    <TableRow android:paddingVertical="14dp">
+                        <TextView android:paddingStart="12dp" android:text="FC(B/M)000001" android:textColor="#424242" />
+                        <TextView android:text="FC(B/M)000004" android:textColor="#424242" />
+                        <TextView android:paddingEnd="12dp" android:text="Fiction" android:textColor="@color/colorPrimary" android:textStyle="bold" />
+                    </TableRow>
+
+                    <View android:layout_height="1dp" android:background="#F1F1F1" />
+
+                    <TableRow android:paddingVertical="14dp">
+                        <TextView android:paddingStart="12dp" android:text="CH(B/M)000001" android:textColor="#424242" />
+                        <TextView android:text="CH(B/M)000004" android:textColor="#424242" />
+                        <TextView android:paddingEnd="12dp" android:text="Children" android:textColor="@color/colorPrimary" android:textStyle="bold" />
+                    </TableRow>
+
+                    <View android:layout_height="1dp" android:background="#F1F1F1" />
+
+                    <TableRow android:paddingVertical="14dp">
+                        <TextView android:paddingStart="12dp" android:text="PD(B/M)000001" android:textColor="#424242" />
+                        <TextView android:text="PD(B/M)000004" android:textColor="#424242" />
+                        <TextView android:paddingEnd="12dp" android:text="Personal Dev" android:textColor="@color/colorPrimary" android:textStyle="bold" />
+                    </TableRow>
+
+                </TableLayout>
+            </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
     </ScrollView>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_logout"
-        style="@style/Widget.Material3.Button"
+        style="@style/Widget.Material3.Button.TonalButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_margin="24dp"
         android:text="@string/btn_logout"
+        android:textColor="#D32F2F"
+        app:icon="@android:drawable/ic_lock_power_off"
+        app:iconTint="#D32F2F"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
