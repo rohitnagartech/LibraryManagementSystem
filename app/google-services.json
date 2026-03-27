@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "230183289812",
+    "project_id": "library-management-a29c7",
+    "storage_bucket": "library-management-a29c7.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:230183289812:android:432adff8f16d1cd163cc41",
+        "android_client_info": {
+          "package_name": "com.acxiom.librarymgmt"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-3Dcvq05Ep7V8qW0vfitjm2KcafQwMTU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

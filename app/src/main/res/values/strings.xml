@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Library Management System</string>
+
+    <!-- Button Labels -->
+    <string name="btn_login">Login</string>
+    <string name="btn_confirm">Confirm</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="btn_logout">Log Out</string>
+    <string name="btn_home">Home</string>
+    <string name="btn_search">Search</string>
+    <string name="btn_add">Add</string>
+    <string name="btn_update">Update</string>
+    <string name="btn_fetch">Fetch</string>
+    <string name="btn_login_again">Login Again</string>
+    <string name="btn_seed_data">Seed Test Data</string>
+
+    <!-- Screen Titles -->
+    <string name="title_admin_home">Admin Home Page</string>
+    <string name="title_user_home">Home Page</string>
+    <string name="title_transactions">Transactions</string>
+    <string name="title_book_availability">Book Availability</string>
+    <string name="title_book_issue">Book Issue</string>
+    <string name="title_return_book">Return Book</string>
+    <string name="title_pay_fine">Pay Fine</string>
+    <string name="title_reports">Available Reports</string>
+    <string name="title_maintenance">Housekeeping</string>
+    <string name="title_confirmation">Transaction Successful</string>
+    <string name="title_cancel">Transaction Cancelled</string>
+    <string name="title_user_mgmt">User Management</string>
+    <string name="title_master_books">Master List of Books</string>
+    <string name="title_master_movies">Master List of Movies</string>
+    <string name="title_master_memberships">Master List of Memberships</string>
+    <string name="title_active_issues">Active Issues</string>
+    <string name="title_overdue_returns">Overdue Returns</string>
+    <string name="title_issue_requests">Issue Requests</string>
+
+    <!-- Labels -->
+    <string name="lbl_user_id">User ID</string>
+    <string name="lbl_password">Password</string>
+    <string name="lbl_book_name">Book Name</string>
+    <string name="lbl_author">Author</string>
+    <string name="lbl_serial_no">Serial No</string>
+    <string name="lbl_available">Available</string>
+    <string name="lbl_select">Select</string>
+    <string name="lbl_membership_id">Membership ID</string>
+    <string name="lbl_issue_date">Issue Date</string>
+    <string name="lbl_return_date">Return Date</string>
+    <string name="lbl_remarks">Remarks</string>
+    <string name="lbl_actual_return_date">Actual Return Date</string>
+    <string name="lbl_fine_calculated">Fine Calculated</string>
+    <string name="lbl_fine_paid">Fine Paid</string>
+    <string name="lbl_product_details">Product Details</string>
+    <string name="lbl_code_from">Code No From</string>
+    <string name="lbl_code_to">Code No To</string>
+    <string name="lbl_category">Category</string>
+    <string name="lbl_membership">Membership</string>
+    <string name="lbl_books_movies">Books/Movies</string>
+    <string name="lbl_user_mgmt">User Management</string>
+    <string name="lbl_new_user">New User</string>
+    <string name="lbl_existing_user">Existing User</string>
+    <string name="lbl_name">Name</string>
+    <string name="lbl_active">Active</string>
+    <string name="lbl_admin">Admin</string>
+    <string name="lbl_first_name">First Name</string>
+    <string name="lbl_last_name">Last Name</string>
+    <string name="lbl_contact_no">Contact Number</string>
+    <string name="lbl_address">Contact Address</string>
+    <string name="lbl_aadhar">Aadhaar Card No</string>
+    <string name="lbl_start_date">Start Date</string>
+    <string name="lbl_end_date">End Date</string>
+    <string name="lbl_duration">Membership Duration</string>
+    <string name="lbl_extension">Membership Extension</string>
+    <string name="lbl_remove">Membership Remove</string>
+    <string name="lbl_type">Type</string>
+    <string name="lbl_quantity">Quantity/Copies</string>
+    <string name="lbl_cost">Cost</string>
+    <string name="lbl_status">Status</string>
+    <string name="lbl_procurement_date">Date of Procurement</string>
+
+    <!-- Messages -->
+    <string name="msg_splash_title">Library Management\nSystem</string>
+    <string name="msg_logout_success">You have successfully logged out.</string>
+    <string name="msg_transaction_success">Transaction completed successfully.</string>
+    <string name="msg_transaction_cancelled">Transaction cancelled</string>
+    <string name="msg_no_records">No records found</string>
+    <string name="msg_select_maintenance">Select an option from the left menu</string>
+    <string name="msg_seed_success">Seed data added successfully</string>
+
+    <!-- Error Messages -->
+    <string name="err_empty_fields">Please enter User ID and Password</string>
+    <string name="err_book_name_required">Book Name is required</string>
+    <string name="err_serial_no_required">Serial No is required</string>
+    <string name="err_fine_not_paid">Please check Fine Paid to complete the return</string>
+    <string name="err_select_book">Please select a book to issue</string>
+    <string name="err_access_denied">Access Denied</string>
+    <string name="err_login_failed">Invalid credentials</string>
+    <string name="err_user_not_found">User not found or inactive</string>
+    <string name="err_valid_selection">Please make a valid selection - enter Book Name or Author</string>
+    <string name="err_all_fields_mandatory">All fields are mandatory</string>
+    <string name="err_issue_date_invalid">Issue date cannot be less than today</string>
+    <string name="err_return_date_invalid">Return date cannot be more than 15 days from issue date</string>
+    <string name="err_mem_not_found">Membership not found</string>
+    <string name="err_enter_mem_id">Please enter Membership Number</string>
+    <string name="err_fetch_first">Please fetch a membership first</string>
+    <string name="err_name_mandatory">Name is mandatory</string>
+</resources>

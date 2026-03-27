@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground">
+
+    <include
+        android:id="@+id/include_toolbar"
+        layout="@layout/toolbar_layout" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/btn_logout"
+        app:layout_constraintTop_toBottomOf="@id/include_toolbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="2"
+                android:rowCount="1">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card_reports"
+                    android:layout_width="0dp"
+                    android:layout_height="120dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="8dp"
+                    app:cardBackgroundColor="@color/colorCardBackground"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="4dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/title_reports"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card_transactions"
+                    android:layout_width="0dp"
+                    android:layout_height="120dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="8dp"
+                    app:cardBackgroundColor="@color/colorCardBackground"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="4dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/title_transactions"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+                </com.google.android.material.card.MaterialCardView>
+
+            </GridLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/lbl_product_details"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:padding="8dp"
+                android:stretchColumns="*">
+
+                <TableRow android:background="@color/colorPrimary">
+                    <TextView android:padding="8dp" android:text="@string/lbl_code_from" android:textColor="@color/white" android:textStyle="bold" />
+                    <TextView android:padding="8dp" android:text="@string/lbl_code_to" android:textColor="@color/white" android:textStyle="bold" />
+                    <TextView android:padding="8dp" android:text="@string/lbl_category" android:textColor="@color/white" android:textStyle="bold" />
+                </TableRow>
+
+                <TableRow>
+                    <TextView android:padding="8dp" android:text="SC(B/M)000001" />
+                    <TextView android:padding="8dp" android:text="SC(B/M)000004" />
+                    <TextView android:padding="8dp" android:text="Science" />
+                </TableRow>
+                <TableRow>
+                    <TextView android:padding="8dp" android:text="EC(B/M)000001" />
+                    <TextView android:padding="8dp" android:text="EC(B/M)000004" />
+                    <TextView android:padding="8dp" android:text="Economics" />
+                </TableRow>
+                <TableRow>
+                    <TextView android:padding="8dp" android:text="FC(B/M)000001" />
+                    <TextView android:padding="8dp" android:text="FC(B/M)000004" />
+                    <TextView android:padding="8dp" android:text="Fiction" />
+                </TableRow>
+                <TableRow>
+                    <TextView android:padding="8dp" android:text="CH(B/M)000001" />
+                    <TextView android:padding="8dp" android:text="CH(B/M)000004" />
+                    <TextView android:padding="8dp" android:text="Children" />
+                </TableRow>
+                <TableRow>
+                    <TextView android:padding="8dp" android:text="PD(B/M)000001" />
+                    <TextView android:padding="8dp" android:text="PD(B/M)000004" />
+                    <TextView android:padding="8dp" android:text="Personal Dev" />
+                </TableRow>
+
+            </TableLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btn_logout"
+        style="@style/Widget.Material3.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="@string/btn_logout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
