@@ -133,8 +133,8 @@ MAINTENANCE  REPORTS         TRANSACTIONS
     ├─Upd Mem  ├─Movies       │ Book Available │
     ├─Add Book ├─Memberships  └───────┬────────┘
     ├─Upd Book ├─Active Issue         │
-    └─User Mgmt├─Overdue          ┌───▼──────────┐
-               └─Requests        │Search Results │
+    └─User Mgmt├─Overdue          ┌───▼────────── ┐
+               └─Requests         │Search Results │
                                   └───────┬───────┘
                                           │
                                      ┌────▼──────┐
@@ -517,9 +517,9 @@ On first launch, navigate to `SeedDataActivity` and tap **"Seed Test Data"** to 
 **[Your Full Name]**
 Android Developer | Acxiom Consulting Assessment Candidate
 
-- 📧 Email: yourname@email.com
-- 💼 LinkedIn: [linkedin.com/in/yourprofile](https://linkedin.com/in/yourprofile)
-- 🐙 GitHub: [github.com/yourusername](https://github.com/yourusername)
+- 📧 Email: rohitnagartech124@gmail.com | en24ca5030142@medicaps.ac.in
+- 💼 LinkedIn: [linkedin.com/in/yourprofile](https://www.linkedin.com/in/rohitnagartech/)
+- 🐙 GitHub: [github.com/yourusername](https://github.com/rohitnagartech)
 
 ---
 
@@ -533,5 +533,5 @@ All rights reserved © 2025.
 <p align="center">
   Built with ❤️ using Android Studio + Firebase
   <br/>
-  <strong>Library Management System — Acxiom Consulting Assessment</strong>
+  <strong>Library Management System - Acxiom Consulting Assessment, ROHIT NAGAR</strong>
 </p>
