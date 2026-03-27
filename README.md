@@ -1,5 +1,5 @@
 # 📚 Library Management System
-### Android Application — Acxiom Consulting Technical Assessment
+### Android Application : ROHIT NAGAR
 
 <p align="center">
   <img src="https://img.shields.io/badge/Platform-Android-3DDC84?style=for-the-badge&logo=android&logoColor=white"/>
