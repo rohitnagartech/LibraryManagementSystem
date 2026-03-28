@@ -330,7 +330,7 @@ com.acxiom.librarymgmt/
 
 ### Step 1 — Clone the Repository
 ```bash
-git clone https://github.com/yourusername/LibraryManagementSystem.git
+https://github.com/rohitnagartech/LibraryManagementSystem.git
 cd LibraryManagementSystem
 ```
 
