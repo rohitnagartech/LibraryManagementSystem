@@ -24,7 +24,7 @@
     <string name="title_return_book">Return Book</string>
     <string name="title_pay_fine">Pay Fine</string>
     <string name="title_reports">Available Reports</string>
-    <string name="title_maintenance">Housekeeping</string>
+    <string name="title_maintenance">Maintenance</string>
     <string name="title_confirmation">Transaction Successful</string>
     <string name="title_cancel">Transaction Cancelled</string>
     <string name="title_user_mgmt">User Management</string>
