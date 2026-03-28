@@ -454,26 +454,21 @@ On first launch, navigate to `SeedDataActivity` and tap **"Seed Test Data"** to 
 
 ## 📸 Screenshots
 
-
-
-
-> *(Add screenshots after building the app)*
-
 | Login Screen | Admin Home | User Home |
 |:---:|:---:|:---:|
 | ![Login](https://github.com/user-attachments/assets/e70a794d-55bb-4953-a30c-43de09df064c) | ![Admin](https://github.com/user-attachments/assets/35878d90-cdb2-46cd-bd48-12a2c404a17b) | ![User](https://github.com/user-attachments/assets/30decfc7-3156-4b28-aff1-9c8f91188981) |
 
 | Book Search | Search Results | Book Issue |
 |:---:|:---:|:---:|
-| ![Search](screenshots/book_search.png) | ![Results](screenshots/search_results.png) | ![Issue](screenshots/book_issue.png) |
+| ![Search](https://github.com/user-attachments/assets/ae303112-5cd9-47d8-8dcf-00df62f8e329) | ![Results](https://github.com/user-attachments/assets/4416b7fa-8957-4704-95d5-9352ed3cd238) | ![Issue](https://github.com/user-attachments/assets/c761fa8a-2586-46c6-baed-01f9695a31e4) |
 
 | Return Book | Pay Fine | Reports |
 |:---:|:---:|:---:|
-| ![Return](screenshots/return_book.png) | ![Fine](screenshots/pay_fine.png) | ![Reports](screenshots/reports.png) |
+| ![Return](https://github.com/user-attachments/assets/c8872b23-5e82-4d53-a980-e0eb94dda3f2) | ![Fine](https://github.com/user-attachments/assets/bb29858d-12cc-46e3-9429-273961df24d9) | ![Reports](https://github.com/user-attachments/assets/3ecd4f52-8962-48b3-a680-db55f6888e58) |
 
 | Add Membership | Add Book | User Management |
 |:---:|:---:|:---:|
-| ![Membership](screenshots/add_membership.png) | ![Book](screenshots/add_book.png) | ![Users](screenshots/user_mgmt.png) |
+| ![Membership](https://github.com/user-attachments/assets/8ef8b2f5-40fc-45c0-a4c3-850e31df4c22) | ![Book](https://github.com/user-attachments/assets/0524ad11-300b-4c9d-8f5e-5551a881d66c) | ![Users](https://github.com/user-attachments/assets/b9a452e0-1953-4ba5-b353-2e64e97c681f) |
 
 ---
 
