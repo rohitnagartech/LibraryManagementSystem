@@ -512,8 +512,8 @@ On first launch, navigate to `SeedDataActivity` and tap **"Seed Test Data"** to 
 
 ## 👨‍💻 Author
 
-**[Your Full Name]**
-Android Developer | Acxiom Consulting Assessment Candidate
+**ROHIT NAGAR**
+Android Developer | Graphic Designer
 
 - 📧 Email: rohitnagartech124@gmail.com | en24ca5030142@medicaps.ac.in
 - 💼 LinkedIn: https://www.linkedin.com/in/rohitnagartech/
