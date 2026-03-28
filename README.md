@@ -323,7 +323,7 @@ com.acxiom.librarymgmt/
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Android Studio Hedgehog (2023.1.1) or newer
+- Android Studio Panda 4 | 2025.3.4 Canary 2
 - JDK 17+
 - Android device or emulator running API 24+
 - Google account for Firebase
