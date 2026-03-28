@@ -6,9 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -29,15 +27,13 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 
 public class AddBookActivity extends AppCompatActivity {
 
     private RadioGroup rgType;
-    private TextInputEditText etName, etAuthor, etQuantity, etCost;
+    private TextInputEditText etName, etAuthor, etQuantity, etCost, etProcurementDate;
     private Spinner spinnerCategory;
-    private EditText etProcurementDate;
     private Button btnConfirm, btnCancel, btnHome, btnLogout;
     private TextView tvPageError;
     private ProgressBar progressBar;

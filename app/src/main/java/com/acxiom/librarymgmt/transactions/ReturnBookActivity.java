@@ -3,11 +3,12 @@ package com.acxiom.librarymgmt.transactions;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -24,31 +25,28 @@ import com.acxiom.librarymgmt.utils.Constants;
 import com.acxiom.librarymgmt.utils.FirebaseHelper;
 import com.acxiom.librarymgmt.utils.SessionManager;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 public class ReturnBookActivity extends AppCompatActivity {
 
     private AutoCompleteTextView actvBookName, actvSerialNo;
-    private TextInputEditText etAuthor, etIssueDate, etRemarks;
-    private EditText etReturnDate;
+    private TextInputEditText etAuthor, etIssueDate, etRemarks, etReturnDate;
     private Button btnConfirm, btnCancel, btnHome, btnLogout;
     private TextView tvPageError;
     private ProgressBar progressBar;
     private SessionManager session;
     private FirebaseHelper firebaseHelper;
     private List<Issue> activeIssues = new ArrayList<>();
-    private Map<String, List<Issue>> bookToIssuesMap = new HashMap<>();
     private Issue selectedIssue;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-    private Calendar scheduledReturnCalendar = Calendar.getInstance();
+    private Calendar actualReturnCalendar = Calendar.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,55 +73,77 @@ public class ReturnBookActivity extends AppCompatActivity {
         tvPageError = findViewById(R.id.tv_page_error);
         progressBar = findViewById(R.id.progress_bar);
 
+        // Pre-fill today's date for return
+        etReturnDate.setText(sdf.format(actualReturnCalendar.getTime()));
+
         loadActiveIssues();
 
         actvBookName.setOnItemClickListener((parent, view, position, id) -> {
-            String selectedBook = (String) parent.getItemAtPosition(position);
-            List<Issue> issues = bookToIssuesMap.get(selectedBook);
-            if (issues != null && !issues.isEmpty()) {
-                etAuthor.setText(issues.get(0).getAuthorName());
-                List<String> serials = new ArrayList<>();
-                for (Issue i : issues) serials.add(i.getSerialNo());
-                ArrayAdapter<String> serialAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, serials);
-                actvSerialNo.setAdapter(serialAdapter);
-                actvSerialNo.setText("");
-                etIssueDate.setText("");
-            }
+            String selection = (String) parent.getItemAtPosition(position);
+            updateSerialNumbers(selection);
         });
 
         actvSerialNo.setOnItemClickListener((parent, view, position, id) -> {
             String serial = (String) parent.getItemAtPosition(position);
-            String bookName = actvBookName.getText().toString();
-            List<Issue> issues = bookToIssuesMap.get(bookName);
-            if (issues != null) {
-                for (Issue i : issues) {
-                    if (i.getSerialNo().equals(serial)) {
-                        selectedIssue = i;
-                        etIssueDate.setText(sdf.format(i.getIssueDate()));
-                        etReturnDate.setText(sdf.format(i.getReturnDate()));
-                        scheduledReturnCalendar.setTime(i.getReturnDate());
-                        break;
-                    }
-                }
+            updateIssueDetails(serial);
+        });
+
+        // Add text watchers to clear details if user types instead of selecting
+        actvBookName.addTextChangedListener(new TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
+                selectedIssue = null;
+                etAuthor.setText("");
+                actvSerialNo.setText("");
+                etIssueDate.setText("");
             }
+            @Override public void afterTextChanged(Editable s) {}
+        });
+
+        actvSerialNo.addTextChangedListener(new TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
+                selectedIssue = null;
+                etIssueDate.setText("");
+            }
+            @Override public void afterTextChanged(Editable s) {}
         });
 
         etReturnDate.setOnClickListener(v -> {
-            if (selectedIssue == null) return;
             DatePickerDialog dpd = new DatePickerDialog(this, (view, year, month, dayOfMonth) -> {
-                scheduledReturnCalendar.set(year, month, dayOfMonth);
-                etReturnDate.setText(sdf.format(scheduledReturnCalendar.getTime()));
-            }, scheduledReturnCalendar.get(Calendar.YEAR), scheduledReturnCalendar.get(Calendar.MONTH), scheduledReturnCalendar.get(Calendar.DAY_OF_MONTH));
+                actualReturnCalendar.set(year, month, dayOfMonth);
+                etReturnDate.setText(sdf.format(actualReturnCalendar.getTime()));
+            }, actualReturnCalendar.get(Calendar.YEAR), actualReturnCalendar.get(Calendar.MONTH), actualReturnCalendar.get(Calendar.DAY_OF_MONTH));
             dpd.show();
         });
 
         btnConfirm.setOnClickListener(v -> {
-            if (actvBookName.getText().toString().isEmpty() || actvSerialNo.getText().toString().isEmpty()) {
+            String bookNameText = actvBookName.getText().toString().trim();
+            String serialNoText = actvSerialNo.getText().toString().trim();
+
+            if (bookNameText.isEmpty() || serialNoText.isEmpty()) {
                 tvPageError.setText("Please select Book Name and Serial No");
                 tvPageError.setVisibility(View.VISIBLE);
                 return;
             }
-            if (selectedIssue == null) return;
+
+            // Robust validation: search through all active issues
+            if (selectedIssue == null) {
+                for (Issue i : activeIssues) {
+                    boolean matchesName = i.getBookName().equalsIgnoreCase(bookNameText) || 
+                                       i.getAuthorName().equalsIgnoreCase(bookNameText);
+                    if (matchesName && i.getSerialNo().equalsIgnoreCase(serialNoText)) {
+                        selectedIssue = i;
+                        break;
+                    }
+                }
+            }
+
+            if (selectedIssue == null) {
+                tvPageError.setText("Invalid selection. Please re-select book and serial number.");
+                tvPageError.setVisibility(View.VISIBLE);
+                return;
+            }
             
             Intent intent = new Intent(this, PayFineActivity.class);
             intent.putExtra("issueId", selectedIssue.getIssueId());
@@ -151,28 +171,73 @@ public class ReturnBookActivity extends AppCompatActivity {
         findViewById(R.id.btn_toolbar_home).setOnClickListener(v -> btnHome.performClick());
     }
 
+    private void updateSerialNumbers(String searchText) {
+        List<String> serials = new ArrayList<>();
+        String author = "";
+        
+        for (Issue i : activeIssues) {
+            if (i.getBookName().equalsIgnoreCase(searchText) || i.getAuthorName().equalsIgnoreCase(searchText)) {
+                if (!serials.contains(i.getSerialNo())) {
+                    serials.add(i.getSerialNo());
+                }
+                if (author.isEmpty()) {
+                    author = i.getAuthorName();
+                }
+            }
+        }
+
+        if (!serials.isEmpty()) {
+            etAuthor.setText(author);
+            ArrayAdapter<String> serialAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, serials);
+            actvSerialNo.setAdapter(serialAdapter);
+            actvSerialNo.setText("");
+            etIssueDate.setText("");
+            selectedIssue = null;
+        }
+    }
+
+    private void updateIssueDetails(String serial) {
+        String searchText = actvBookName.getText().toString().trim();
+        for (Issue i : activeIssues) {
+            boolean matchesName = i.getBookName().equalsIgnoreCase(searchText) || 
+                               i.getAuthorName().equalsIgnoreCase(searchText);
+            if (matchesName && i.getSerialNo().equalsIgnoreCase(serial)) {
+                selectedIssue = i;
+                etIssueDate.setText(sdf.format(i.getIssueDate()));
+                break;
+            }
+        }
+    }
+
     private void loadActiveIssues() {
         progressBar.setVisibility(View.VISIBLE);
+        
+        // Remove membershipId filter to allow library staff (user login) to see all issues for return
         firebaseHelper.getDb().collection(Constants.ISSUES)
                 .whereEqualTo("status", "active")
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     progressBar.setVisibility(View.GONE);
                     activeIssues.clear();
-                    bookToIssuesMap.clear();
-                    List<String> bookNames = new ArrayList<>();
+                    List<String> suggestions = new ArrayList<>();
                     for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
                         Issue issue = doc.toObject(Issue.class);
                         activeIssues.add(issue);
-                        if (!bookToIssuesMap.containsKey(issue.getBookName())) {
-                            bookToIssuesMap.put(issue.getBookName(), new ArrayList<>());
-                            bookNames.add(issue.getBookName());
+                        
+                        if (!suggestions.contains(issue.getBookName())) {
+                            suggestions.add(issue.getBookName());
                         }
-                        bookToIssuesMap.get(issue.getBookName()).add(issue);
+                        if (!suggestions.contains(issue.getAuthorName())) {
+                            suggestions.add(issue.getAuthorName());
+                        }
                     }
-                    ArrayAdapter<String> bookAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, bookNames);
-                    actvBookName.setAdapter(bookAdapter);
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, suggestions);
+                    actvBookName.setAdapter(adapter);
                 })
-                .addOnFailureListener(e -> progressBar.setVisibility(View.GONE));
+                .addOnFailureListener(e -> {
+                    progressBar.setVisibility(View.GONE);
+                    tvPageError.setText("Error loading issues: " + e.getMessage());
+                    tvPageError.setVisibility(View.VISIBLE);
+                });
     }
 }
