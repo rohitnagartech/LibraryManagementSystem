@@ -454,11 +454,14 @@ On first launch, navigate to `SeedDataActivity` and tap **"Seed Test Data"** to 
 
 ## 📸 Screenshots
 
+
+
+
 > *(Add screenshots after building the app)*
 
 | Login Screen | Admin Home | User Home |
 |:---:|:---:|:---:|
-| ![Login](screenshots/login.png) | ![Admin](screenshots/admin_home.png) | ![User](screenshots/user_home.png) |
+| ![Login](https://github.com/user-attachments/assets/e70a794d-55bb-4953-a30c-43de09df064c) | ![Admin](https://github.com/user-attachments/assets/35878d90-cdb2-46cd-bd48-12a2c404a17b) | ![User](https://github.com/user-attachments/assets/30decfc7-3156-4b28-aff1-9c8f91188981) |
 
 | Book Search | Search Results | Book Issue |
 |:---:|:---:|:---:|
