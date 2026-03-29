@@ -3,6 +3,7 @@ package com.acxiom.librarymgmt.reports;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -91,7 +92,7 @@ public class MasterMoviesActivity extends AppCompatActivity {
     private void addHeaderText(LinearLayout parent, String text, int widthDp) {
         TextView tv = new TextView(this);
         tv.setText(text);
-        tv.setTextColor(getResources().getColor(R.color.white));
+        tv.setTextColor(getResources().getColor(android.R.color.black));
         tv.setTypeface(null, android.graphics.Typeface.BOLD);
         tv.setPadding(8, 8, 8, 8);
         float scale = getResources().getDisplayMetrics().density;

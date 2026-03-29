@@ -88,7 +88,7 @@ public class IssueRequestsActivity extends AppCompatActivity {
     private void addHeaderText(LinearLayout parent, String text, int widthDp) {
         TextView tv = new TextView(this);
         tv.setText(text);
-        tv.setTextColor(getResources().getColor(R.color.white));
+        tv.setTextColor(getResources().getColor(android.R.color.black));
         tv.setTypeface(null, android.graphics.Typeface.BOLD);
         tv.setPadding(8, 8, 8, 8);
         float scale = getResources().getDisplayMetrics().density;
