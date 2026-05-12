@@ -26,7 +26,6 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -50,12 +49,19 @@ public class BookIssueActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_issue);
-        // Force Light Mode
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
         session = new SessionManager(this);
         firebaseHelper = FirebaseHelper.getInstance();
         serialNo = getIntent().getStringExtra("serialNo");
 
+        initViews();
+        setupDefaultDates();
+        loadBookDetails();
+        setupListeners();
+    }
+
+    private void initViews() {
         TextView toolbarTitle = findViewById(R.id.toolbar_title);
         toolbarTitle.setText(R.string.title_book_issue);
 
@@ -71,17 +77,20 @@ public class BookIssueActivity extends AppCompatActivity {
         btnLogout = findViewById(R.id.btn_logout);
         tvPageError = findViewById(R.id.tv_page_error);
         progressBar = findViewById(R.id.progress_bar);
+    }
 
-        // Set default dates
+    private void setupDefaultDates() {
+        // Issue date is today
         etIssueDate.setText(sdf.format(calendarIssue.getTime()));
+
+        // Return date is 15 days from today
         calendarReturn.add(Calendar.DAY_OF_YEAR, 15);
         etReturnDate.setText(sdf.format(calendarReturn.getTime()));
+    }
 
-        loadBookDetails();
-
+    private void setupListeners() {
         etIssueDate.setOnClickListener(v -> showDatePicker(true));
         etReturnDate.setOnClickListener(v -> showDatePicker(false));
-
         btnConfirm.setOnClickListener(v -> issueBook());
         btnCancel.setOnClickListener(v -> finish());
 
@@ -98,7 +107,7 @@ public class BookIssueActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         });
-        
+
         findViewById(R.id.btn_toolbar_home).setOnClickListener(v -> btnHome.performClick());
     }
 
@@ -123,27 +132,42 @@ public class BookIssueActivity extends AppCompatActivity {
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, (view, year, month, dayOfMonth) -> {
             Calendar selected = Calendar.getInstance();
             selected.set(year, month, dayOfMonth);
-            
+            selected.set(Calendar.HOUR_OF_DAY, 0);
+            selected.set(Calendar.MINUTE, 0);
+            selected.set(Calendar.SECOND, 0);
+            selected.set(Calendar.MILLISECOND, 0);
+
+            Calendar today = Calendar.getInstance();
+            today.set(Calendar.HOUR_OF_DAY, 0);
+            today.set(Calendar.MINUTE, 0);
+            today.set(Calendar.SECOND, 0);
+            today.set(Calendar.MILLISECOND, 0);
+
             if (isIssueDate) {
-                if (selected.before(Calendar.getInstance())) {
-                    tvPageError.setText("Issue date cannot be less than today");
-                    tvPageError.setVisibility(View.VISIBLE);
+                if (selected.before(today)) {
+                    showError("Issue date cannot be in the past");
                     return;
                 }
                 calendarIssue = selected;
                 etIssueDate.setText(sdf.format(calendarIssue.getTime()));
-                // Update default return date to issue + 15
+
+                // Auto-sync return date to +15 days from new issue date
                 calendarReturn = (Calendar) calendarIssue.clone();
                 calendarReturn.add(Calendar.DAY_OF_YEAR, 15);
                 etReturnDate.setText(sdf.format(calendarReturn.getTime()));
             } else {
-                Calendar maxReturn = (Calendar) calendarIssue.clone();
-                maxReturn.add(Calendar.DAY_OF_YEAR, 15);
-                if (selected.after(maxReturn)) {
-                    tvPageError.setText("Return date cannot be more than 15 days from issue date");
-                    tvPageError.setVisibility(View.VISIBLE);
+                if (selected.before(calendarIssue)) {
+                    showError("Return date must be after issue date");
                     return;
                 }
+
+                long diff = selected.getTimeInMillis() - calendarIssue.getTimeInMillis();
+                long days = diff / (24 * 60 * 60 * 1000);
+                if (days > 15) {
+                    showError("Return date cannot exceed 15 days from issue");
+                    return;
+                }
+
                 calendarReturn = selected;
                 etReturnDate.setText(sdf.format(calendarReturn.getTime()));
             }
@@ -154,18 +178,34 @@ public class BookIssueActivity extends AppCompatActivity {
 
     private void issueBook() {
         String bookName = etBookName.getText().toString().trim();
+        String author = etAuthor.getText().toString().trim();
         String membershipId = etMembershipId.getText().toString().trim();
+        String remarks = etRemarks.getText().toString().trim();
 
-        if (bookName.isEmpty() || membershipId.isEmpty()) {
-            tvPageError.setText(R.string.err_all_fields_mandatory);
-            tvPageError.setVisibility(View.VISIBLE);
+        // 1. Empty Field Validation
+        if (bookName.isEmpty() || membershipId.isEmpty() || author.isEmpty()) {
+            showError("All fields are mandatory");
+            return;
+        }
+
+        // 2. Membership ID Validation (alphanumeric, e.g., 5-12 chars)
+        if (!membershipId.matches("^[a-zA-Z0-9]{5,12}$")) {
+            showError("Invalid Membership ID (5-12 alphanumeric characters)");
+            return;
+        }
+
+        // 3. Final Date Logic Check
+        if (calendarReturn.before(calendarIssue) || calendarReturn.equals(calendarIssue)) {
+            showError("Invalid return date selection");
             return;
         }
 
         progressBar.setVisibility(View.VISIBLE);
+        tvPageError.setVisibility(View.GONE);
+
         String issueId = UUID.randomUUID().toString();
-        Issue issue = new Issue(issueId, serialNo, bookName, etAuthor.getText().toString(), membershipId, 
-                calendarIssue.getTime(), calendarReturn.getTime(), null, "active", 0.0, false, etRemarks.getText().toString());
+        Issue issue = new Issue(issueId, serialNo, bookName, author, membershipId,
+                calendarIssue.getTime(), calendarReturn.getTime(), null, "active", 0.0, false, remarks);
 
         firebaseHelper.getDb().collection(Constants.ISSUES).document(issueId).set(issue)
                 .addOnSuccessListener(aVoid -> {
@@ -180,8 +220,12 @@ public class BookIssueActivity extends AppCompatActivity {
                 })
                 .addOnFailureListener(e -> {
                     progressBar.setVisibility(View.GONE);
-                    tvPageError.setText("Error: " + e.getMessage());
-                    tvPageError.setVisibility(View.VISIBLE);
+                    showError("Database Error: " + e.getMessage());
                 });
+    }
+
+    private void showError(String message) {
+        tvPageError.setText(message);
+        tvPageError.setVisibility(View.VISIBLE);
     }
 }

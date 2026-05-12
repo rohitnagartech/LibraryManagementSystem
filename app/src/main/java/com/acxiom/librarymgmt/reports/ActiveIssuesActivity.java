@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -109,6 +110,7 @@ public class ActiveIssuesActivity extends AppCompatActivity {
 
     private void loadData() {
         progressBar.setVisibility(View.VISIBLE);
+        // This query fetches from the "issues" collection where the status is "active"
         firebaseHelper.getDb().collection(Constants.ISSUES)
                 .whereEqualTo("status", "active")
                 .get()
@@ -116,11 +118,15 @@ public class ActiveIssuesActivity extends AppCompatActivity {
                     progressBar.setVisibility(View.GONE);
                     issueList.clear();
                     for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
-                        issueList.add(doc.toObject(Issue.class));
+                        Issue issue = doc.toObject(Issue.class);
+                        issueList.add(issue);
                     }
                     adapter.notifyDataSetChanged();
                     tvNoRecords.setVisibility(issueList.isEmpty() ? View.VISIBLE : View.GONE);
                 })
-                .addOnFailureListener(e -> progressBar.setVisibility(View.GONE));
+                .addOnFailureListener(e -> {
+                    progressBar.setVisibility(View.GONE);
+                    Toast.makeText(this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
     }
 }
