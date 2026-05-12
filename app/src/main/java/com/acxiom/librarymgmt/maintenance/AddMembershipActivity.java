@@ -46,8 +46,8 @@ public class AddMembershipActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_membership);
-// Force Light Mode
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
         session = new SessionManager(this);
         if (!session.isAdmin()) {
             Toast.makeText(this, R.string.err_access_denied, Toast.LENGTH_SHORT).show();
@@ -56,9 +56,6 @@ public class AddMembershipActivity extends AppCompatActivity {
         }
 
         firebaseHelper = FirebaseHelper.getInstance();
-
-        TextView toolbarTitle = findViewById(R.id.toolbar_title);
-        toolbarTitle.setText("Add Membership");
 
         etFirstName = findViewById(R.id.et_first_name);
         etLastName = findViewById(R.id.et_last_name);
@@ -80,7 +77,6 @@ public class AddMembershipActivity extends AppCompatActivity {
 
         etStartDate.setOnClickListener(v -> showDatePicker(true));
         etEndDate.setOnClickListener(v -> showDatePicker(false));
-
         rgDuration.setOnCheckedChangeListener((group, checkedId) -> updateEndDate());
 
         btnConfirm.setOnClickListener(v -> addMembership());
@@ -96,8 +92,6 @@ public class AddMembershipActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         });
-        
-        findViewById(R.id.btn_toolbar_home).setOnClickListener(v -> btnHome.performClick());
     }
 
     private void updateEndDate() {
@@ -119,8 +113,15 @@ public class AddMembershipActivity extends AppCompatActivity {
             } else {
                 endCalendar.set(year, month, dayOfMonth);
                 etEndDate.setText(sdf.format(endCalendar.getTime()));
+                rgDuration.clearCheck();
             }
         }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
+
+        if (!isStartDate) {
+            Calendar minLimit = (Calendar) startCalendar.clone();
+            minLimit.add(Calendar.DATE, 1);
+            dpd.getDatePicker().setMinDate(minLimit.getTimeInMillis());
+        }
         dpd.show();
     }
 
@@ -132,16 +133,31 @@ public class AddMembershipActivity extends AppCompatActivity {
         String aadhar = etAadharNo.getText().toString().trim();
 
         if (fname.isEmpty() || lname.isEmpty() || contact.isEmpty() || address.isEmpty() || aadhar.isEmpty()) {
-            tvPageError.setText(R.string.err_all_fields_mandatory);
-            tvPageError.setVisibility(View.VISIBLE);
+            showError("All fields are mandatory");
+            return;
+        }
+
+        if (contact.length() != 10) {
+            showError("Contact number must be 10 digits");
+            return;
+        }
+
+        if (aadhar.length() != 12) {
+            showError("Aadhar number must be 12 digits");
+            return;
+        }
+
+        if (!endCalendar.after(startCalendar)) {
+            showError("End date must be after start date");
             return;
         }
 
         progressBar.setVisibility(View.VISIBLE);
         String memId = "MEM" + System.currentTimeMillis();
-        String type = "6months";
+        String type = "custom";
         int checkedId = rgDuration.getCheckedRadioButtonId();
-        if (checkedId == R.id.rb_1year) type = "1year";
+        if (checkedId == R.id.rb_6months) type = "6months";
+        else if (checkedId == R.id.rb_1year) type = "1year";
         else if (checkedId == R.id.rb_2years) type = "2years";
 
         Membership m = new Membership(memId, fname, lname, contact, address, aadhar, type, "active", startCalendar.getTime(), endCalendar.getTime(), 0.0);
@@ -153,8 +169,12 @@ public class AddMembershipActivity extends AppCompatActivity {
                 })
                 .addOnFailureListener(e -> {
                     progressBar.setVisibility(View.GONE);
-                    tvPageError.setText("Error: " + e.getMessage());
-                    tvPageError.setVisibility(View.VISIBLE);
+                    showError("Error: " + e.getMessage());
                 });
+    }
+
+    private void showError(String message) {
+        tvPageError.setText(message);
+        tvPageError.setVisibility(View.VISIBLE);
     }
 }
