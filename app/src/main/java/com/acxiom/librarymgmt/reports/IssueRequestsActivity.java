@@ -102,7 +102,7 @@ public class IssueRequestsActivity extends AppCompatActivity {
         findViewById(R.id.nav_memberships).setOnClickListener(v -> { startActivity(new Intent(this, MasterMembershipsActivity.class)); finish(); });
         findViewById(R.id.nav_active_issues).setOnClickListener(v -> { startActivity(new Intent(this, ActiveIssuesActivity.class)); finish(); });
         findViewById(R.id.nav_overdue).setOnClickListener(v -> { startActivity(new Intent(this, OverdueReturnsActivity.class)); finish(); });
-        findViewById(R.id.nav_requests).setOnClickListener(v -> {});
+//        findViewById(R.id.nav_requests).setOnClickListener(v -> {});
     }
 
     private void loadData() {
